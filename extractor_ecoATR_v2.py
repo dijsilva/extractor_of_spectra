@@ -1,7 +1,7 @@
 """Script para extrair as informações de absorbância dos espectros
 gerados pelo software do aparelho EcoATR da empresa Bruker"""
 """Algoritmo escrito por: Diego Silva - Biotecnologia/UnB"""
-import numpy as np
+import numpy as np 
 import time
 import csv
 import xlsxwriter
