@@ -1,7 +1,8 @@
 import tkinter as tk
 #from tkinter import *
 from tkinter import filedialog
-from tkinter import BOTH, END, LEFT
+from tkinter import ttk
+
 
 
 HEIGHT = 600
@@ -20,6 +21,31 @@ def openDialog():
         folderPath.set(directory)
         return directory
 
+def openDialogSave():
+    directorySave = filedialog.asksaveasfilename(initialdir =  "/home", title = "Select A File")
+    if directorySave:
+        folderForSave.set(directorySave)
+        return directorySave
+
+
+def handleSubmmit():
+    variablesButton = [TidaButton, EcoButton]
+    variables = [csvVar, dptVar]
+    if (((variables[0].get() == 1) and (variables[1].get() == 1)) or ((variables[0]).get() == 0) and (variables[1].get() == 0)):
+        win = tk.Toplevel()
+        win.minsize(200,100)
+        win.resizable(width=False, height=False)
+        win.wm_title("Warning")
+
+        l = tk.Label(win, text="You should choose one, and only one type of file.", pady=20, padx=40)
+        l.pack(fill=tk.Y)
+
+        b = ttk.Button(win, text="OK", command=win.destroy)
+        b.place(relx=0.4, rely=0.6)
+
+        return 
+        
+
 
 #create a 'container'
 canvas = tk.Canvas(app, height=HEIGHT, width=WIDTH)
@@ -32,29 +58,35 @@ frame.place(relwidth=1, relheight=1)
 titleOfSoftware = tk.Label(frame, text='Spectra Extractor', anchor='center', bg='#d4d4d4')
 titleOfSoftware.pack()
 
-#d4d4d4
+
+
+
 frameDirectory = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
 frameDirectory["border"] = "1"
-frameDirectory.place(relx=0.5, rely=0.08, relwidth=0.9, relheight=0.5, anchor='n')
+frameDirectory.place(relx=0.5, rely=0.08, relwidth=0.9, relheight=0.28, anchor='n')
 
-titleOfDirectory = tk.Label(frameDirectory, text='Escolha a pasta onde estão os arquivos', anchor='center', bg='#d4d4d4')
+titleOfDirectory = tk.Label(frameDirectory, text='Load files', anchor='center', bg='#d4d4d4')
 titleOfDirectory.pack()
 
-labelOfSpectrometer = tk.Label(frameDirectory, text='Selecione o equipamento utilizado: ', anchor='center', bg='#d4d4d4')
-labelOfSpectrometer.place(relwidth=0.35, relheight=0.1, rely=0.1, relx=0)
+labelOfSpectrometer = tk.Label(frameDirectory, text='Selecione o formato do arquivo: ', anchor='center', bg='#d4d4d4')
+labelOfSpectrometer.place(relwidth=0.323, relheight=0.15, rely=0.25, relx=0)
 
-var1 = tk.IntVar()
-TidaButton = tk.Checkbutton(frameDirectory, text="TIDA", variable=var1, bg='#d4d4d4', activebackground='#d4d4d4')
-TidaButton.place(relwidth=0.12, relheight=0.1, rely=0.1, relx=0.35)
-var2 = tk.IntVar()
-EcoButton = tk.Checkbutton(frameDirectory, text="ECO-ATR", variable=var2, bg='#d4d4d4', activebackground='#d4d4d4')
-EcoButton.place(relwidth=0.12, relheight=0.1, rely=0.1, relx=0.5)
+dptVar = tk.IntVar()
+dptVar.set(0)
+TidaButton = tk.Checkbutton(frameDirectory, text=".dpt", variable=dptVar, bg='#d4d4d4', activebackground='#d4d4d4')
+TidaButton.place(relwidth=0.1, relheight=0.2, rely=0.25, relx=0.32)
+csvVar = tk.IntVar()
+csvVar.set(0)
+EcoButton = tk.Checkbutton(frameDirectory, text=".csv", variable=csvVar, bg='#d4d4d4', activebackground='#d4d4d4')
+EcoButton.place(relwidth=0.12, relheight=0.2, rely=0.25, relx=0.42)
 
 
+labelOfSpectrometer = tk.Label(frameDirectory, text='Selecione o diretório: ', anchor='center', bg='#d4d4d4')
+labelOfSpectrometer.place(relwidth=0.22, relheight=0.15, rely=0.43, relx=0)
 #local where the directory is showed
 folderPath = tk.StringVar()
 entry = tk.Entry(frameDirectory, font=40, textvariable=folderPath)
-entry.place(relwidth=0.6, relheight=0.12, rely=0.22)
+entry.place(relwidth=0.6, height=40, rely=0.75)
 
 
 # Creating a photoimage object to use image and resizing image to fit on button 
@@ -64,6 +96,64 @@ photoimage = photo.subsample(10, 10)
 #creating button for select the directory
 buttonOfStart = tk.Button(frameDirectory, text='SELECIONAR PASTA', image=photoimage, compound = 'left', padx=10, pady=5, command = openDialog, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 buttonOfStart["border"] = "1"
-buttonOfStart.place(relwidth=0.39, relheight=0.12, relx=0.61, rely=0.22)
+buttonOfStart.place(relwidth=0.39, height=40, relx=0.61, rely=0.75)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+saveDirectoryFrame = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
+saveDirectoryFrame["border"] = "1"
+saveDirectoryFrame.place(relx=0.5, rely=0.365, relwidth=0.9, relheight=0.2, anchor='n')
+
+titleOfsaveDirectoryFrame = tk.Label(saveDirectoryFrame, text='Save file', anchor='center', bg='#d4d4d4')
+titleOfsaveDirectoryFrame.pack()
+
+labelOfSaveFile = tk.Label(saveDirectoryFrame, text='Defina o local onde o arquivo será salvo: ', anchor='center', bg='#d4d4d4')
+labelOfSaveFile.place(relwidth=0.4, relheight=0.15, rely=0.43, relx=0)
+
+#local where the directory is showed
+folderForSave = tk.StringVar()
+SaveEntry = tk.Entry(saveDirectoryFrame, font=40, textvariable=folderForSave)
+SaveEntry.place(relwidth=0.6, height=40, rely=0.62)
+
+
+# Creating a photoimage object to use image and resizing image to fit on button 
+photoSave = tk.PhotoImage(file = "images/select.png") 
+photoimageSave = photoSave.subsample(10, 10) 
+
+#creating button for select the directory
+buttonOfSave = tk.Button(saveDirectoryFrame, text='SELECIONAR PASTA', image=photoimageSave, compound = 'left', padx=10, pady=5, command = openDialogSave, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
+buttonOfSave["border"] = "1"
+buttonOfSave.place(relwidth=0.39, height=40, relx=0.61, rely=0.62)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+buttonOfStart = tk.Button(app, text='EXTRAIR', image=photoimage, compound = 'left', padx=10, pady=5, command = handleSubmmit, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
+#buttonOfStart["border"] = "1"
+buttonOfStart.place(relwidth=0.15, relheight=0.07, relx=0.4, rely=0.9)
 
 app.mainloop()
