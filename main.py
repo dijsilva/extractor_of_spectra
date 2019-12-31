@@ -22,7 +22,8 @@ def openDialog():
         return directory
 
 def openDialogSave():
-    directorySave = filedialog.asksaveasfilename(initialdir =  "/home", title = "Select A File")
+    directorySave = filedialog.asksaveasfilename(initialdir =  "/home", title = "Select A File", filetypes=(('Comma-separated values', '*.csv'),
+    ('Excel Files', '*.xlsx')))
     if directorySave:
         folderForSave.set(directorySave)
         return directorySave
@@ -113,7 +114,7 @@ buttonOfStart.place(relwidth=0.39, height=40, relx=0.61, rely=0.75)
 
 saveDirectoryFrame = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
 saveDirectoryFrame["border"] = "1"
-saveDirectoryFrame.place(relx=0.5, rely=0.365, relwidth=0.9, relheight=0.2, anchor='n')
+saveDirectoryFrame.place(relx=0.5, rely=0.37, relwidth=0.9, relheight=0.21, anchor='n')
 
 titleOfsaveDirectoryFrame = tk.Label(saveDirectoryFrame, text='Save file', anchor='center', bg='#d4d4d4')
 titleOfsaveDirectoryFrame.pack()
@@ -126,13 +127,8 @@ folderForSave = tk.StringVar()
 SaveEntry = tk.Entry(saveDirectoryFrame, font=40, textvariable=folderForSave)
 SaveEntry.place(relwidth=0.6, height=40, rely=0.62)
 
-
-# Creating a photoimage object to use image and resizing image to fit on button 
-photoSave = tk.PhotoImage(file = "images/select.png") 
-photoimageSave = photoSave.subsample(10, 10) 
-
 #creating button for select the directory
-buttonOfSave = tk.Button(saveDirectoryFrame, text='SELECIONAR PASTA', image=photoimageSave, compound = 'left', padx=10, pady=5, command = openDialogSave, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
+buttonOfSave = tk.Button(saveDirectoryFrame, text='SELECIONAR PASTA', image=photoimage, compound = 'left', padx=10, pady=5, command = openDialogSave, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 buttonOfSave["border"] = "1"
 buttonOfSave.place(relwidth=0.39, height=40, relx=0.61, rely=0.62)
 
@@ -147,12 +143,30 @@ buttonOfSave.place(relwidth=0.39, height=40, relx=0.61, rely=0.62)
 
 
 
+optionsFrame = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
+optionsFrame["border"] = "1"
+optionsFrame.place(relx=0.5, rely=0.59, relwidth=0.9, relheight=0.25, anchor='n')
+
+titleOfOptionsFrame = tk.Label(optionsFrame, text='Options', anchor='center', bg='#d4d4d4')
+titleOfOptionsFrame.pack()
+
+logVar = tk.IntVar()
+logVar.set(0)
+logButton = tk.Checkbutton(optionsFrame, text="Create a log file", variable=logVar, bg='#d4d4d4', activebackground='#d4d4d4')
+logButton.place(width=130, relheight=0.2, rely=0.25, relx=0)
 
 
 
 
 
-buttonOfStart = tk.Button(app, text='EXTRAIR', image=photoimage, compound = 'left', padx=10, pady=5, command = handleSubmmit, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
+
+
+
+# Creating a photoimage object to use image and resizing image to fit on button 
+photoStart = tk.PhotoImage(file = "images/start.png") 
+photoimageStart = photoStart.subsample(20, 20) 
+
+buttonOfStart = tk.Button(app, text='EXTRAIR', image=photoimageStart, compound = 'left', padx=10, pady=5, command = handleSubmmit, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 #buttonOfStart["border"] = "1"
 buttonOfStart.place(relwidth=0.15, relheight=0.07, relx=0.4, rely=0.9)
 
