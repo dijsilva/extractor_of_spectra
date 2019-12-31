@@ -50,9 +50,11 @@ var2 = tk.IntVar()
 EcoButton = tk.Checkbutton(frameDirectory, text="ECO-ATR", variable=var2, bg='#d4d4d4', activebackground='#d4d4d4')
 EcoButton.place(relwidth=0.12, relheight=0.1, rely=0.1, relx=0.5)
 
+
+#local where the directory is showed
 folderPath = tk.StringVar()
 entry = tk.Entry(frameDirectory, font=40, textvariable=folderPath)
-entry.place(relwidth=0.6, relheight=0.55, rely=0.7)
+entry.place(relwidth=0.6, relheight=0.12, rely=0.22)
 
 
 # Creating a photoimage object to use image and resizing image to fit on button 
@@ -62,6 +64,6 @@ photoimage = photo.subsample(10, 10)
 #creating button for select the directory
 buttonOfStart = tk.Button(frameDirectory, text='SELECIONAR PASTA', image=photoimage, compound = 'left', padx=10, pady=5, command = openDialog, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 buttonOfStart["border"] = "1"
-buttonOfStart.place(relwidth=0.39, relheight=0.55, relx=0.61, rely=0.7)
+buttonOfStart.place(relwidth=0.39, relheight=0.12, relx=0.61, rely=0.22)
 
 app.mainloop()
