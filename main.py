@@ -5,7 +5,7 @@ from extractor import Extractor
 
 
 
-HEIGHT = 600
+HEIGHT = 700
 WIDTH = 800
 TITLE = 'Spectra Extractor'
 
@@ -31,6 +31,9 @@ def openDialogSave():
 
 def handleSubmmit():
     formatFile = ''
+    createLogFile = False
+
+
     variablesButton = [TidaButton, EcoButton]
     variables = [csvVar, dptVar]
     if (((variables[0].get() == 1) and (variables[1].get() == 1)) or ((variables[0]).get() == 0) and (variables[1].get() == 0)):
@@ -53,9 +56,19 @@ def handleSubmmit():
     if variables[1].get() == 1:
         formatFile = '.dpt'
     
+    if logVar.get() == 1:
+        createLogFile = True
+    
+    progress['value'] = 30
+    app.update_idletasks()
     a = Extractor(folderPath.get(), formatFile)
     a.preViewOfFiles()
-    a.extractor(folderForSave.get())
+    progress['value'] = 60
+    app.update_idletasks()
+    
+    a.extractor(folderForSave.get(), createLogFile)
+    progress['value'] = 100
+    app.update_idletasks()
         
 
 
@@ -75,7 +88,7 @@ titleOfSoftware.pack()
 
 frameDirectory = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
 frameDirectory["border"] = "1"
-frameDirectory.place(relx=0.5, rely=0.08, relwidth=0.9, relheight=0.28, anchor='n')
+frameDirectory.place(relx=0.5, rely=0.08, relwidth=0.9, relheight=0.24, anchor='n')
 
 titleOfDirectory = tk.Label(frameDirectory, text='Load files', anchor='center', bg='#d4d4d4')
 titleOfDirectory.pack()
@@ -125,7 +138,7 @@ buttonOfStart.place(relwidth=0.39, height=40, relx=0.61, rely=0.745)
 
 saveDirectoryFrame = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
 saveDirectoryFrame["border"] = "1"
-saveDirectoryFrame.place(relx=0.5, rely=0.37, relwidth=0.9, relheight=0.21, anchor='n')
+saveDirectoryFrame.place(relx=0.5, rely=0.325, relwidth=0.9, relheight=0.20, anchor='n')
 
 titleOfsaveDirectoryFrame = tk.Label(saveDirectoryFrame, text='Save file', anchor='center', bg='#d4d4d4')
 titleOfsaveDirectoryFrame.pack()
@@ -156,7 +169,7 @@ buttonOfSave.place(relwidth=0.39, height=40, relx=0.61, rely=0.62)
 
 optionsFrame = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
 optionsFrame["border"] = "1"
-optionsFrame.place(relx=0.5, rely=0.59, relwidth=0.9, relheight=0.25, anchor='n')
+optionsFrame.place(relx=0.5, rely=0.53, relwidth=0.9, relheight=0.19, anchor='n')
 
 titleOfOptionsFrame = tk.Label(optionsFrame, text='Options', anchor='center', bg='#d4d4d4')
 titleOfOptionsFrame.pack()
@@ -168,8 +181,14 @@ logButton.place(width=130, relheight=0.2, rely=0.25, relx=0)
 
 commaSepVar = tk.IntVar()
 commaSepVar.set(0)
-commaSepVar = tk.Checkbutton(optionsFrame, text="Use point for decimal separator (default is comma)", variable=commaSepVar, bg='#d4d4d4', activebackground='#d4d4d4')
-commaSepVar.place(width=358.1, relheight=0.2, rely=0.45, relx=0)
+commaSepVar = tk.Checkbutton(optionsFrame, text="Use comma for decimal separator", variable=commaSepVar, bg='#d4d4d4', activebackground='#d4d4d4')
+commaSepVar.place(width=247, relheight=0.2, rely=0.45, relx=0)
+
+
+
+progress = ttk.Progressbar(app, orient = 'horizontal', 
+              length = 100, mode = 'determinate')
+progress.place(relwidth=0.8, relheight=0.02, relx=0.1, rely=0.85)
 
 
 

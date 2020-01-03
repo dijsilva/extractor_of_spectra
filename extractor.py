@@ -25,8 +25,9 @@ class Extractor:
 
         return quantityOfFiles, self.listOfFiles
     
-    def extractor(self, outputFile):
+    def extractor(self, outputFile, createLogFile):
         self.outputFile = outputFile
+        self.createLogFile = createLogFile
         dictOfModificationsDates = {}
         for item in self.listOfFiles:
             if item not in dictOfModificationsDates:
