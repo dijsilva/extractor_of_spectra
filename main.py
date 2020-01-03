@@ -55,6 +55,7 @@ def handleSubmmit():
     
     a = Extractor(folderPath.get(), formatFile)
     a.preViewOfFiles()
+    a.extractor(folderForSave.get())
         
 
 

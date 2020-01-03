@@ -53,13 +53,21 @@ class Extractor:
             readTitle = False
             f.close()
         
-        nameOfWavelenth = np.array(wavelengthTitle)
+        wavelengthTitle.extend(listOfSpectras)
 
-        wavelength = int(len(listOfSpectras) / len(orderedDictOfModifications))
-        spectra = np.array(listOfSpectras).reshape(wavelength, len(orderedDictOfModifications), order='F')
+        wavelength = int(len(wavelengthTitle) / (len(orderedDictOfModifications) + 1))
+        spectra = np.array(wavelengthTitle).reshape(wavelength, len(orderedDictOfModifications) + 1, order='F')
+
+
+        workbook = xlsxwriter.Workbook('{}'.format(self.outputFile))
+        worksheet_spectra = workbook.add_worksheet('Absorbancy')
+        row = 0
+
+        for col, data in enumerate(spectra):
+            worksheet_spectra.write_column(row, col, data)
+        workbook.close()
         
-        spectrasAndWavelength = np.vstack((nameOfWavelenth, spectra))
-        return spectrasAndWavelength
+        return
 
 
 
