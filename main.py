@@ -1,7 +1,7 @@
 import tkinter as tk
-#from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
+from extractor import Extractor
 
 
 
@@ -11,7 +11,7 @@ TITLE = 'Spectra Extractor'
 
 #create tk app
 app = tk.Tk()
-app.minsize(800,600)
+app.minsize(WIDTH,HEIGHT)
 app.resizable(width=False, height=False)
 app.title(TITLE)
 
@@ -30,6 +30,7 @@ def openDialogSave():
 
 
 def handleSubmmit():
+    formatFile = ''
     variablesButton = [TidaButton, EcoButton]
     variables = [csvVar, dptVar]
     if (((variables[0].get() == 1) and (variables[1].get() == 1)) or ((variables[0]).get() == 0) and (variables[1].get() == 0)):
@@ -44,7 +45,16 @@ def handleSubmmit():
         b = ttk.Button(win, text="OK", command=win.destroy)
         b.place(relx=0.4, rely=0.6)
 
-        return 
+        return
+        
+    if variables[0].get() == 1:
+        formatFile = '.csv'
+    
+    if variables[1].get() == 1:
+        formatFile = '.dpt'
+    
+    a = Extractor(folderPath.get(), formatFile)
+    a.preViewOfFiles()
         
 
 
@@ -69,17 +79,17 @@ frameDirectory.place(relx=0.5, rely=0.08, relwidth=0.9, relheight=0.28, anchor='
 titleOfDirectory = tk.Label(frameDirectory, text='Load files', anchor='center', bg='#d4d4d4')
 titleOfDirectory.pack()
 
-labelOfSpectrometer = tk.Label(frameDirectory, text='Selecione o formato do arquivo: ', anchor='center', bg='#d4d4d4')
-labelOfSpectrometer.place(relwidth=0.323, relheight=0.15, rely=0.25, relx=0)
+labelOfSpectrometer = tk.Label(frameDirectory, text='Select the format of files: ', anchor='center', bg='#d4d4d4')
+labelOfSpectrometer.place(relwidth=0.262, relheight=0.15, rely=0.25, relx=0)
 
 dptVar = tk.IntVar()
 dptVar.set(0)
 TidaButton = tk.Checkbutton(frameDirectory, text=".dpt", variable=dptVar, bg='#d4d4d4', activebackground='#d4d4d4')
-TidaButton.place(relwidth=0.1, relheight=0.2, rely=0.25, relx=0.32)
+TidaButton.place(relwidth=0.1, relheight=0.2, rely=0.235, relx=0.25)
 csvVar = tk.IntVar()
 csvVar.set(0)
 EcoButton = tk.Checkbutton(frameDirectory, text=".csv", variable=csvVar, bg='#d4d4d4', activebackground='#d4d4d4')
-EcoButton.place(relwidth=0.12, relheight=0.2, rely=0.25, relx=0.42)
+EcoButton.place(relwidth=0.12, relheight=0.2, rely=0.235, relx=0.34)
 
 
 labelOfSpectrometer = tk.Label(frameDirectory, text='Selecione o diretório: ', anchor='center', bg='#d4d4d4')
@@ -87,7 +97,7 @@ labelOfSpectrometer.place(relwidth=0.22, relheight=0.15, rely=0.43, relx=0)
 #local where the directory is showed
 folderPath = tk.StringVar()
 entry = tk.Entry(frameDirectory, font=40, textvariable=folderPath)
-entry.place(relwidth=0.6, height=40, rely=0.75)
+entry.place(relwidth=0.6, height=40, rely=0.745)
 
 
 # Creating a photoimage object to use image and resizing image to fit on button 
@@ -97,7 +107,7 @@ photoimage = photo.subsample(10, 10)
 #creating button for select the directory
 buttonOfStart = tk.Button(frameDirectory, text='SELECIONAR PASTA', image=photoimage, compound = 'left', padx=10, pady=5, command = openDialog, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 buttonOfStart["border"] = "1"
-buttonOfStart.place(relwidth=0.39, height=40, relx=0.61, rely=0.75)
+buttonOfStart.place(relwidth=0.39, height=40, relx=0.61, rely=0.745)
 
 
 
@@ -119,8 +129,8 @@ saveDirectoryFrame.place(relx=0.5, rely=0.37, relwidth=0.9, relheight=0.21, anch
 titleOfsaveDirectoryFrame = tk.Label(saveDirectoryFrame, text='Save file', anchor='center', bg='#d4d4d4')
 titleOfsaveDirectoryFrame.pack()
 
-labelOfSaveFile = tk.Label(saveDirectoryFrame, text='Defina o local onde o arquivo será salvo: ', anchor='center', bg='#d4d4d4')
-labelOfSaveFile.place(relwidth=0.4, relheight=0.15, rely=0.43, relx=0)
+labelOfSaveFile = tk.Label(saveDirectoryFrame, text='Defina o local e o nome do arquivo a ser salvo: ', anchor='center', bg='#d4d4d4')
+labelOfSaveFile.place(relwidth=0.47, relheight=0.15, rely=0.43, relx=0)
 
 #local where the directory is showed
 folderForSave = tk.StringVar()
@@ -155,9 +165,10 @@ logVar.set(0)
 logButton = tk.Checkbutton(optionsFrame, text="Create a log file", variable=logVar, bg='#d4d4d4', activebackground='#d4d4d4')
 logButton.place(width=130, relheight=0.2, rely=0.25, relx=0)
 
-
-
-
+commaSepVar = tk.IntVar()
+commaSepVar.set(0)
+commaSepVar = tk.Checkbutton(optionsFrame, text="Use point for decimal separator (default is comma)", variable=commaSepVar, bg='#d4d4d4', activebackground='#d4d4d4')
+commaSepVar.place(width=358.1, relheight=0.2, rely=0.45, relx=0)
 
 
 
