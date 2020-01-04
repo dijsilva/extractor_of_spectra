@@ -162,7 +162,7 @@ entry.place(relwidth=0.7, height=35, rely=0.55, relx=0.005)
 
 
 # Creating a photoimage object to use image and resizing image to fit on button 
-photo = tk.PhotoImage(file = os.path.join("images", "select.png")) 
+photo = tk.PhotoImage(file = os.path.join("/home", "dsilva", "projects", "extractor_of_spectra","images", "select.png")) 
 photoimage = photo.subsample(10, 10) 
 
 #creating button for select the directory
@@ -246,7 +246,7 @@ labelOfLoadingStatus.place(relheight=0.031, rely=0.835, relx=0.385)
 
 
 # Creating a photoimage object to use image and resizing image to fit on button 
-photoStart = tk.PhotoImage(file = os.path.join("images", "start.png")) 
+photoStart = tk.PhotoImage(file = os.path.join("/home", "dsilva", "projects", "extractor_of_spectra","images", "start.png")) 
 photoimageStart = photoStart.subsample(20, 20) 
 
 buttonOfStart = tk.Button(app, text='EXTRAIR', image=photoimageStart, compound = 'left', padx=10, pady=5, command = handleSubmmit, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
