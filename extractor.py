@@ -3,6 +3,7 @@ import csv
 import xlsxwriter
 import os
 from datetime import datetime
+import time
 
 
 class Extractor:
@@ -23,8 +24,11 @@ class Extractor:
         return quantityOfFiles
     
     def extractor(self, outputFile, createLogFile, useCommaSeparator):
+        initTime = time.time()
         self.outputFile = outputFile
         self.createLogFile = createLogFile
+        if (self.createLogFile == True):
+            self.logFile = '{}/{}_log.txt'.format(os.path.split(outputFile)[0], os.path.split(outputFile)[1].split('.')[0])
         self.useCommaSeparator = useCommaSeparator
         dictOfModificationsDates = {}
         for item in self.listOfFiles:
@@ -34,34 +38,53 @@ class Extractor:
                 dictOfModificationsDates[item] = lastmodification
         orderedDictOfModifications = sorted(dictOfModificationsDates, key=dictOfModificationsDates.get)
 
+        logOutputFile = open(self.logFile, 'w')
+        logOutputFile.write('{} spectras was used for extraction.\n\n'.format(len(orderedDictOfModifications)))
+
         listOfSpectras = []
         wavelengthTitle = []
         readTitle = True
         if self.filesFormat == '.csv':
-            for file in orderedDictOfModifications:
-                f = open(item, 'r')
-                fileCSV = csv.reader(f, delimiter=',')
-                check = False
-                for line in fileCSV:
-                    if check == False:
-                        if 'Wavelength (nm)' in line[0]:
-                            check = True
-                    else:
-                        listOfSpectras.append(line[1])
-                        if readTitle == True:
-                            wavelengthTitle.append(line[0])
-                readTitle = False
-                f.close()
+            try:
+                for file in orderedDictOfModifications:
+                    f = open(file, 'r')
+                    fileCSV = csv.reader(f, delimiter=',')
+                    check = False
+                    for line in fileCSV:
+                        if check == False:
+                            if 'Wavelength (nm)' in line[0]:
+                                check = True
+                        else:
+                            listOfSpectras.append(line[1])
+                            if readTitle == True:
+                                wavelengthTitle.append(line[0])
+                    readTitle = False
+                    f.close()
+                logOutputFile.write('All files was read corrected.\n\n')
+            except BaseException as e:
+                logOutputFile.write('An error occurred and the message is:\n\n')
+                logOutputFile.write(str(e))
+                logOutputFile.close()
+                raise Exception ('An error ocurred')
+        
         if self.filesFormat == '.dpt':
-            for file in orderedDictOfModifications:
-                f = open(item, 'r')
-                check = False
-                for line in f:
-                    listOfSpectras.append(line.split(',')[1])
-                    if readTitle == True:
-                        wavelengthTitle.append(line.split(',')[0])
-                readTitle = False
-                f.close()
+            try:
+                for file in orderedDictOfModifications:
+                    f = open(file, 'r')
+                    check = False
+                    for line in f:
+                        listOfSpectras.append(line.split(',')[1])
+                        if readTitle == True:
+                            wavelengthTitle.append(line.split(',')[0])
+                    readTitle = False
+                    f.close()
+                logOutputFile.write('All files was read corrected.\n\n')
+            except BaseException as e:
+                logOutputFile.write('An error occurred and the message is:\n\n')
+                logOutputFile.write(str(e))
+                logOutputFile.close()
+                raise Exception ('An error ocurred')
+
         wavelengthTitle.extend(listOfSpectras)
         
         if self.useCommaSeparator == True:
@@ -81,7 +104,16 @@ class Extractor:
         for col, data in enumerate(spectra):
             worksheet_spectra.write_column(row, col, data)
         workbook.close()
+
+        end = time.time()
+
+        timeOfExecution = end - initTime
         
+        logOutputFile.write('The time of execution was {:.2f} seconds. \n\n'.format(timeOfExecution))
+        logOutputFile.write('The files was read in the order: \n\n')
+        for files in orderedDictOfModifications:
+            logOutputFile.write('{}\n'.format(str(os.path.split(files)[1])))
+        logOutputFile.close()
         return
 
 

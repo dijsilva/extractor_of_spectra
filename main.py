@@ -7,7 +7,7 @@ import time
 
 
 
-HEIGHT = 700
+HEIGHT = 550
 WIDTH = 800
 TITLE = 'Spectra Extractor'
 
@@ -57,7 +57,7 @@ def openDialog():
         numberOfSpectra.set(str(nOfSpectra))
 
         progress['value'] = 25
-        loadingStatus.set('Files Loaded')
+        loadingStatus.set('Successfully uploaded!        ')
         app.update_idletasks()
         return
 
@@ -72,6 +72,21 @@ def openDialogSave():
 
 
 def handleSubmmit():
+
+    if ((folderForSave.get() == 'Define the output file') or (folderPath.get() == 'Define the files for read')):
+        win = tk.Toplevel()
+        win.minsize(200,100)
+        win.resizable(width=False, height=False)
+        win.wm_title("Warning")
+
+        l = tk.Label(win, text="You should choose the files for read and the output file.", pady=20, padx=40)
+        l.pack(fill=tk.Y)
+
+        b = ttk.Button(win, text="OK", command=win.destroy)
+        b.place(relx=0.4, rely=0.6)
+
+        return
+
     formatFile = ''
     createLogFile = False
     commaSeparator = False
@@ -99,10 +114,10 @@ def handleSubmmit():
         time.sleep(1)
         extraction.extractor(folderForSave.get(), createLogFile, commaSeparator)
         progress['value'] = 100
-        loadingStatus.set('Done!')
+        loadingStatus.set('Successfully done task')
         app.update_idletasks()
     except:
-        loadingStatus.set('An error occurred.')
+        loadingStatus.set('An error occurred. Check the log file.')
 
 
 #create a 'container'
@@ -121,7 +136,7 @@ titleOfSoftware.pack()
 
 frameDirectory = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
 frameDirectory["border"] = "1"
-frameDirectory.place(relx=0.5, rely=0.08, relwidth=0.9, relheight=0.375, anchor='n')
+frameDirectory.place(relx=0.5, rely=0.08, relwidth=0.9, relheight=0.27, anchor='n')
 
 titleOfDirectory = tk.Label(frameDirectory, text='Load files', anchor='center', bg='#d4d4d4')
 titleOfDirectory.pack()
@@ -140,11 +155,12 @@ EcoButton.place(relwidth=0.12, relheight=0.15, rely=0.15, relx=0.34)
 
 
 labelOfSpectrometer = tk.Label(frameDirectory, text='Select files: ', anchor='center', bg='#d4d4d4')
-labelOfSpectrometer.place(relwidth=0.132, relheight=0.15, rely=0.25, relx=0)
+labelOfSpectrometer.place(relwidth=0.132, relheight=0.15, rely=0.35, relx=0)
 #local where the directory is showed
 folderPath = tk.StringVar()
-entry = tk.Entry(frameDirectory, font=40, textvariable=folderPath)
-entry.place(relwidth=0.7, height=35, rely=0.39, relx=0.005)
+folderPath.set('Define the files for read')
+entry = tk.Entry(frameDirectory, textvariable=folderPath, state='readonly', font='TkDefaultFont 10 italic', readonlybackground='white')
+entry.place(relwidth=0.7, height=35, rely=0.55, relx=0.005)
 
 
 # Creating a photoimage object to use image and resizing image to fit on button 
@@ -154,40 +170,33 @@ photoimage = photo.subsample(10, 10)
 #creating button for select the directory
 buttonOfStart = tk.Button(frameDirectory, text='SELECT FILES', image=photoimage, compound = 'left', padx=10, pady=5, command = openDialog, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 buttonOfStart["border"] = "1"
-buttonOfStart.place(relwidth=0.29, height=35, relx=0.71, rely=0.39)
+buttonOfStart.place(relwidth=0.29, height=35, relx=0.71, rely=0.55)
 
 labelOfSpectrometer = tk.Label(frameDirectory, text='Number of spectra found: ', anchor='center', bg='#d4d4d4')
-labelOfSpectrometer.place(relwidth=0.261, relheight=0.15, rely=0.55, relx=0)
+labelOfSpectrometer.place(relwidth=0.261, relheight=0.15, rely=0.85, relx=0)
 
 
 numberOfSpectra = tk.StringVar()
 labelOfSpectrometer = tk.Label(frameDirectory, textvariable=numberOfSpectra, anchor='center', bg='#d4d4d4')
-labelOfSpectrometer.place(relheight=0.15, rely=0.55, relx=0.27)
-
-
-
-
-
-
-
-
+labelOfSpectrometer.place(relheight=0.15, rely=0.85, relx=0.27)
 
 
 
 
 saveDirectoryFrame = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
 saveDirectoryFrame["border"] = "1"
-saveDirectoryFrame.place(relx=0.5, rely=0.462, relwidth=0.9, relheight=0.15, anchor='n')
+saveDirectoryFrame.place(relx=0.5, rely=0.356, relwidth=0.9, relheight=0.19, anchor='n')
 
 titleOfsaveDirectoryFrame = tk.Label(saveDirectoryFrame, text='Save file', anchor='center', bg='#d4d4d4')
 titleOfsaveDirectoryFrame.pack()
 
 labelOfSaveFile = tk.Label(saveDirectoryFrame, text='Define the path an name of the output: ', anchor='center', bg='#d4d4d4')
-labelOfSaveFile.place(relwidth=0.39, relheight=0.15, rely=0.21, relx=0)
+labelOfSaveFile.place(relwidth=0.39, relheight=0.15, rely=0.35, relx=0)
 
 #local where the directory is showed
 folderForSave = tk.StringVar()
-SaveEntry = tk.Entry(saveDirectoryFrame, font=40, textvariable=folderForSave)
+folderForSave.set('Define the output file')
+SaveEntry = tk.Entry(saveDirectoryFrame, textvariable=folderForSave, state="readonly", bg='white', font='TkDefaultFont 10 italic', readonlybackground='white')
 SaveEntry.place(relwidth=0.7, height=35, rely=0.55, relx=0.005)
 
 #creating button for select the directory
@@ -208,7 +217,7 @@ buttonOfSave.place(relwidth=0.29, height=35, relx=0.71, rely=0.55)
 
 optionsFrame = tk.Frame(app, bg='#d4d4d4', bd=2, highlightthickness=1, highlightbackground='#777', padx=10, pady=5)
 optionsFrame["border"] = "1"
-optionsFrame.place(relx=0.5, rely=0.62, relwidth=0.9, relheight=0.19, anchor='n')
+optionsFrame.place(relx=0.5, rely=0.552, relwidth=0.9, relheight=0.23, anchor='n')
 
 titleOfOptionsFrame = tk.Label(optionsFrame, text='Options', anchor='center', bg='#d4d4d4')
 titleOfOptionsFrame.pack()
@@ -227,13 +236,13 @@ commaSepVarButton.place(width=247, relheight=0.2, rely=0.45, relx=0)
 
 progress = ttk.Progressbar(app, orient = 'horizontal', 
               length = 100, mode = 'determinate')
-progress.place(relwidth=0.8, relheight=0.02, relx=0.1, rely=0.83)
+progress.place(relwidth=0.8, relheight=0.02, relx=0.1, rely=0.805)
 
 
 loadingStatus = tk.StringVar()
 loadingStatus.set('Waiting for action...')
 labelOfLoadingStatus = tk.Label(app, textvariable=loadingStatus, anchor='center', bg='#d4d4d4')
-labelOfLoadingStatus.place(relwidth=0.261, relheight=0.022, rely=0.862, relx=0.352)
+labelOfLoadingStatus.place(relheight=0.031, rely=0.835, relx=0.385)
 
 
 
