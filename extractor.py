@@ -38,8 +38,9 @@ class Extractor:
                 dictOfModificationsDates[item] = lastmodification
         orderedDictOfModifications = sorted(dictOfModificationsDates, key=dictOfModificationsDates.get)
 
-        logOutputFile = open(self.logFile, 'w')
-        logOutputFile.write('{} spectras was used for extraction.\n\n'.format(len(orderedDictOfModifications)))
+        if (self.createLogFile == True):
+            logOutputFile = open(self.logFile, 'w')
+            logOutputFile.write('{} spectras was used for extraction.\n\n'.format(len(orderedDictOfModifications)))
 
         listOfSpectras = []
         wavelengthTitle = []
@@ -60,11 +61,13 @@ class Extractor:
                                 wavelengthTitle.append(line[0])
                     readTitle = False
                     f.close()
-                logOutputFile.write('All files was read corrected.\n\n')
+                if (self.createLogFile == True):
+                    logOutputFile.write('All files was read corrected.\n\n')
             except BaseException as e:
-                logOutputFile.write('An error occurred and the message is:\n\n')
-                logOutputFile.write(str(e))
-                logOutputFile.close()
+                if (self.createLogFile == True):
+                    logOutputFile.write('An error occurred and the message is:\n\n')
+                    logOutputFile.write(str(e))
+                    logOutputFile.close()
                 raise Exception ('An error ocurred')
         
         if self.filesFormat == '.dpt':
@@ -78,11 +81,13 @@ class Extractor:
                             wavelengthTitle.append(line.split(',')[0])
                     readTitle = False
                     f.close()
-                logOutputFile.write('All files was read corrected.\n\n')
+                if (self.createLogFile == True):
+                    logOutputFile.write('All files was read corrected.\n\n')
             except BaseException as e:
-                logOutputFile.write('An error occurred and the message is:\n\n')
-                logOutputFile.write(str(e))
-                logOutputFile.close()
+                if (self.createLogFile == True):
+                    logOutputFile.write('An error occurred and the message is:\n\n')
+                    logOutputFile.write(str(e))
+                    logOutputFile.close()
                 raise Exception ('An error ocurred')
 
         wavelengthTitle.extend(listOfSpectras)
@@ -109,11 +114,12 @@ class Extractor:
 
         timeOfExecution = end - initTime
         
-        logOutputFile.write('The time of execution was {:.2f} seconds. \n\n'.format(timeOfExecution))
-        logOutputFile.write('The files was read in the order: \n\n')
-        for files in orderedDictOfModifications:
-            logOutputFile.write('{}\n'.format(str(os.path.split(files)[1])))
-        logOutputFile.close()
+        if (self.createLogFile == True):
+            logOutputFile.write('The time of execution was {:.2f} seconds. \n\n'.format(timeOfExecution))
+            logOutputFile.write('The files was read in the order: \n\n')
+            for files in orderedDictOfModifications:
+                logOutputFile.write('{}\n'.format(str(os.path.split(files)[1])))
+            logOutputFile.close()
         return
 
 

@@ -7,10 +7,12 @@ This is a algorithm with GUI for specta extraction obtained by TEXAS (TIDA) and 
 <h2>How to use</h2>
 For use, download the file of executable (available for Windows and Ubuntu) or clone this respository and run the main.py script. Make sure that all dependencies were installed.
 
-When the window of GUI open, choose the type of file that the algorithm should read and select which files will be read. Next step is select the name and path of output file. This algorithm can save the output in .xslx or .csv formats.
+When the window of GUI open, choose the type of file that the algorithm (required) should read and select which files will be read. Next step is select the name and path of output file. This algorithm can save the output in .xslx or .csv formats.
 
 There are two options that can chosen by user: the creation of a log file (a file that contains informations about the process, like time of execution and/or error that can be occurred) and to use comma as decimal separator (default is point).
 
-![Initial Page](/images_readme/inital.png)
+<img align="center" width="300" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images_readme/inital.png">
 
-After select the files to be read and the output file, just click in RUN and wait process to complete.
+After select the files to be read and the output file, just click in RUN and wait process to complete. The progress bar will be complete and the extraction of spectra is done.
+
+<img align="center" width="300" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images_readme/end.png">
