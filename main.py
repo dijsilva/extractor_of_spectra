@@ -227,7 +227,7 @@ logButton.place(width=130, relheight=0.2, rely=0.25, relx=0)
 
 commaSepVar = tk.IntVar()
 commaSepVar.set(1)
-commaSepVarButton = tk.Checkbutton(optionsFrame, text="Use comma for decimal separator", variable=commaSepVar, bg='#d4d4d4', activebackground='#d4d4d4')
+commaSepVarButton = tk.Checkbutton(optionsFrame, text="Use comma as decimal separator", variable=commaSepVar, bg='#d4d4d4', activebackground='#d4d4d4')
 commaSepVarButton.place(width=247, relheight=0.2, rely=0.45, relx=0)
 
 
