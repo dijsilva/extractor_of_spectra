@@ -1,4 +1,7 @@
-<h1>Spectra Extractor built using Python 3.7</h1>
+<h1 align='center'>Spectra Extractor built using Python 3.7</h1>
+<p align="center">
+<img width="300" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images/icon.png">
+</p>
 
 
 <h2>Overview</h2>
