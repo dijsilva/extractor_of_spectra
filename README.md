@@ -11,8 +11,12 @@ When the window of GUI open, choose the type of file that the algorithm (require
 
 There are two options that can chosen by user: the creation of a log file (a file that contains informations about the process, like time of execution and/or error that can be occurred) and to use comma as decimal separator (default is point).
 
-<img align="center" width="800" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images_readme/initial.png">
+<p align="center">
+<img width="800" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images_readme/initial.png">
+</p>
 
 After select the files to be read and the output file, just click in RUN and wait process to complete. The progress bar will be complete and the extraction of spectra is done.
 
-<img align="center" width="800" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images_readme/end.png">
+<p align="center">
+<img width="800" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images_readme/end.png">
+</p>
