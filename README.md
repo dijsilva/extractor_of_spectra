@@ -8,6 +8,7 @@ When the window of GUI open, choose the type of file that the algorithm should r
 
 There are two options that can chosen by user: the creation of a log file (a file that contains informations about the process, like time of execution and/or error that can be occurred) and to use comma as decimal separator (default is point).
 
+<p align='center'>
 ![Initial Page](/images_readme/inital.png)
-Format: ![Alt Text](url)
+</p>
 
