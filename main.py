@@ -256,7 +256,7 @@ labelOfLoadingStatus.place(relheight=0.02, rely=0.974, relx=0.0)
 photoStart = tk.PhotoImage(file = os.path.join("/home", "dsilva", "projects", "extractor_of_spectra","images", "start.png")) 
 photoimageStart = photoStart.subsample(20, 20) 
 
-buttonOfStart = tk.Button(app, text='EXTRAIR', image=photoimageStart, compound = 'left', padx=10, pady=5, command = handleSubmmit, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
+buttonOfStart = tk.Button(app, text='START', image=photoimageStart, compound = 'left', padx=10, pady=5, command = handleSubmmit, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 #buttonOfStart["border"] = "1"
 buttonOfStart.place(relwidth=0.15, relheight=0.07, relx=0.4, rely=0.9)
 
