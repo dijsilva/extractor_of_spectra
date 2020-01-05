@@ -121,10 +121,3 @@ class Extractor:
                 logOutputFile.write('{}\n'.format(str(os.path.split(files)[1])))
             logOutputFile.close()
         return
-
-
-
-
-#teste = Extractor('/home/dsilva/Downloads/leitura_de_graos_26-12-19', '.csv')
-#quantity, files = teste.preViewOfFiles()
-#dates = teste.extractor('teste')
