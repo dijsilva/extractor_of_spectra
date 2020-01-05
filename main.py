@@ -244,6 +244,13 @@ labelOfLoadingStatus.place(relheight=0.031, rely=0.835, relx=0.385)
 
 
 
+labelOfLoadingStatus = tk.Label(app, text='Developed by Diego Silva', anchor='center', bg='#d4d4d4', font='TkDefaultFont 6 bold')
+labelOfLoadingStatus.place(relheight=0.028, rely=0.95, relx=0.0)
+labelOfLoadingStatus = tk.Label(app, text='www.github.com/dijsilva', anchor='center', bg='#d4d4d4', font='TkDefaultFont 6 bold')
+labelOfLoadingStatus.place(relheight=0.02, rely=0.974, relx=0.0)
+
+
+
 
 # Creating a photoimage object to use image and resizing image to fit on button 
 photoStart = tk.PhotoImage(file = os.path.join("/home", "dsilva", "projects", "extractor_of_spectra","images", "start.png")) 
