@@ -1,5 +1,5 @@
 <p align="center">
-<img width="300" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images/icon.png">
+<img width="300" src="https://github.com/dijsilva/extractor_of_spectra/blob/master/images_readme/spectra.png">
 </p>
 <h1 align='center'>Spectra Extractor built using Python 3.7</h1>
 
