@@ -161,12 +161,8 @@ entry = tk.Entry(frameDirectory, textvariable=folderPath, state='readonly', font
 entry.place(relwidth=0.7, height=35, rely=0.55, relx=0.005)
 
 
-# Creating a photoimage object to use image and resizing image to fit on button 
-photo = tk.PhotoImage(file = os.path.join("/home", "dsilva", "projects", "extractor_of_spectra","images", "select.png")) 
-photoimage = photo.subsample(10, 10) 
-
 #creating button for select the directory
-buttonOfStart = tk.Button(frameDirectory, text='SELECT FILES', image=photoimage, compound = 'left', padx=10, pady=5, command = openDialog, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
+buttonOfStart = tk.Button(frameDirectory, text='SELECT FILES', compound = 'left', padx=10, pady=5, command = openDialog, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 buttonOfStart["border"] = "1"
 buttonOfStart.place(relwidth=0.29, height=35, relx=0.71, rely=0.55)
 
@@ -198,7 +194,7 @@ SaveEntry = tk.Entry(saveDirectoryFrame, textvariable=folderForSave, state="read
 SaveEntry.place(relwidth=0.7, height=35, rely=0.55, relx=0.005)
 
 #creating button for select the directory
-buttonOfSave = tk.Button(saveDirectoryFrame, text='SAVE AS', image=photoimage, compound = 'left', padx=10, pady=5, command = openDialogSave, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
+buttonOfSave = tk.Button(saveDirectoryFrame, text='SAVE AS', compound = 'left', padx=10, pady=5, command = openDialogSave, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 buttonOfSave["border"] = "1"
 buttonOfSave.place(relwidth=0.29, height=35, relx=0.71, rely=0.55)
 
@@ -228,7 +224,7 @@ logButton.place(width=130, relheight=0.2, rely=0.25, relx=0)
 commaSepVar = tk.IntVar()
 commaSepVar.set(1)
 commaSepVarButton = tk.Checkbutton(optionsFrame, text="Use comma as decimal separator", variable=commaSepVar, bg='#d4d4d4', activebackground='#d4d4d4')
-commaSepVarButton.place(width=247, relheight=0.2, rely=0.45, relx=0)
+commaSepVarButton.place(width=244.5, relheight=0.2, rely=0.45, relx=0)
 
 
 
@@ -250,13 +246,7 @@ labelOfLoadingStatus = tk.Label(app, text='www.github.com/dijsilva', anchor='cen
 labelOfLoadingStatus.place(relheight=0.02, rely=0.974, relx=0.0)
 
 
-
-
-# Creating a photoimage object to use image and resizing image to fit on button 
-photoStart = tk.PhotoImage(file = os.path.join("/home", "dsilva", "projects", "extractor_of_spectra","images", "start.png")) 
-photoimageStart = photoStart.subsample(20, 20) 
-
-buttonOfStart = tk.Button(app, text='START', image=photoimageStart, compound = 'left', padx=10, pady=5, command = handleSubmmit, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
+buttonOfStart = tk.Button(app, text='START', compound = 'left', padx=10, pady=5, command = handleSubmmit, bd=2, highlightthickness=1, highlightbackground='#777', bg='#d4d4d4')
 #buttonOfStart["border"] = "1"
 buttonOfStart.place(relwidth=0.15, relheight=0.07, relx=0.4, rely=0.9)
 
